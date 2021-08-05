@@ -42,7 +42,7 @@ const convertSong = (data) => {
 		rating: data.stats.score,
 	};
 	const uploader = {
-		_id: data.uploader.hash,
+		_id: data.uploader.id,
 		username: data.uploader.name,
 	};
 
