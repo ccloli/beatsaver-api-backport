@@ -59,7 +59,7 @@ const convertSong = (data) => {
 		uploaded: data.uploaded,
 		directDownload: lastVersion.downloadURL,
 		downloadURL: lastVersion.downloadURL,
-		coverURL: lastVersion.downloadURL,
+		coverURL: lastVersion.coverURL,
 	};
 };
 
