@@ -16,5 +16,7 @@ router.use('/api/stats/key/:id', detail);
 router.use('/api/maps/latest/:page', latest);
 router.use('/api/maps/rating/:page', rating);
 router.use('/api/maps/plays/:page', plays);
+router.use('/api/maps/downloads/:page', fullSpread);
+router.use('/api/maps/hot/:page', fullSpread);
 
 module.exports = router;
