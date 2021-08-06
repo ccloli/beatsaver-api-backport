@@ -7,6 +7,7 @@ const latest = require('../services/latest');
 
 const router = Router();
 router.use('/api/maps/detail/:id', detail);
+router.use('/api/maps/by-hash/:hash', detail);
 router.use('/api/maps/uploader/:id/:page', uploader);
 router.use('/api/search/text/:page', search);
 router.use('/api/download/key/:id', download);
