@@ -6,6 +6,14 @@ const fs = require('fs');
 const router = require('./router');
 
 const app = express();
+
+if (process.env.LOG_REQUEST === 'true') {
+	app.use((req, res, next) => {
+		console.log(`[${req.ip}] ${req.method} ${req.originalUrl}`);
+		next();
+	});
+}
+
 app.use(proxy('https://api.beatsaver.com', {
 	// request api.beatsaver.com in case you point beatsaver.com to localhost,
 	// nslookup api.beatsaver.com says it's an alias of beatsaver.com,
@@ -16,6 +24,7 @@ app.use(proxy('https://api.beatsaver.com', {
 	},
 	filter: (req) => req.headers.referer || !req.path.startsWith('/api')
 }));
+
 app.use('/', router);
 
 app.on('error', (err) => {
