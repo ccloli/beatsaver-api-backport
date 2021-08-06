@@ -23,7 +23,7 @@ npm start
 
 The server is configured to proxy to original `beatsaver.com`, so accessing the server should give you the full features for current version of BeatSaver, and convert APIs to older version automatically for mods (or technically, when not accessing with a web browser).
 
-To make the server (and your mods) fully works, you **need** to create a https server, and it **must** listen on port `443`.
+To make the server (and your mods) fully works, it's **required** to create a https server, and it **must** run on port `443`.
 
 You can either edit the `.env` file to enable the built-in HTTPS server:
 
@@ -37,7 +37,7 @@ HTTPS_CERT=./beatsaver.com.cert
 LOG_REQUEST=true
 ```
 
-Or if you have multiple hosts are running on your server, you can also use a simple nginx config file:
+Or if you have multiple hosts are running on your server, you can use a simple nginx config file:
 
 ```conf
 server {
@@ -57,11 +57,9 @@ server {
 }
 ```
 
-However, in either way, you still needs a SSL certificate of `beatsaver.com` to make it works.
+However, in either way, you still need to create a SSL certificate of `beatsaver.com` to make it works.
 
-Since you don't own `beatsaver.com`, so you cannot sign a public validated certificate.
-
-Instead, you have to [self-sign an SSL certificate](https://www.google.com/search?q=how+to+generate+a+self-signed+ssl), and [trust it on the PC](https://www.google.com/search?q=how+to+trust+a+self-signed+ssl) you want to use old mods.
+Since you don't own `beatsaver.com`, so you cannot sign a public validated certificate. Instead, you have to [self-sign a SSL certificate](https://www.google.com/search?q=how+to+generate+a+self-signed+ssl), and [trust it on the PC](https://www.google.com/search?q=how+to+trust+a+self-signed+ssl) you want to use old mods.
 
 Finally, update your hosts file, add a line to point `beatsaver.com` to your server:
 
@@ -74,12 +72,12 @@ Finally, update your hosts file, add a line to point `beatsaver.com` to your ser
 
 If you have setup some DNS resolver programs like Adguard Home, it's recommend to do the same things on them.
 
-If everything works fine, opening `https://beatsaver.com` on the PC that has trusted the self-signed certificate and set hosts file, you should see the request logs on terminal. Opening Beat Saber and click _More Songs_ button, you should see the song list and can download any songs.
+If everything works fine, open `https://beatsaver.com` on the PC that has trusted the self-signed certificate and set hosts file, the site should works fine and you should see the request logs on terminal. Opening game and click _More Songs_ button, you should see the latest song list and can download any songs.
 
 
 ## Why I need this?
 
-Again, if you're intended to use a newer version game and mods, and don't want to stay on old version's game or mods (which is also not recommended by BSMG), then you don't need this. Instead, all you need to do is to wait the mods being updated.
+Again, if you're intended to use a newer version of game and mods, and don't want to stay on old version's game or mods (which is also not recommended by BSMG), then you don't need this. Instead, all you need to do is to wait the mods being updated.
 
 If you're trying to run an older version of game or mods (again it's not recommended by BSMG), and wants to download songs in game, then this is a way to make it works again. 
 
@@ -91,9 +89,14 @@ You can, but not recommended for security reasons. They may modify the source co
 
 ## Why you write this?
 
-I'm not interest in updating (and have reason to run old version game), and don't like the feeling that having BREAKING CHANGE things and doesn't compatible with the old version.
+I'm not interested in updating (and have reason to run old version game), and don't like the feeling that having BREAKING CHANGE things and doesn't compatible with the old version.
 
 Though to be honest, it's still a good step to make BeatSaver works better like having new features, a short pain is for better future. But I'm still prefer to compatible with older APIs, and newer APIs should distinct with older APIs like having a newer prefix like `/api/v2/`. But as the server's maintainer is changed, so it may not possible as it's not easy to do an adapter.
+
+
+## Special Thanks
+
+- [Internet Archive Wayback Machine](https://web.archive.org/web/*/https://beatsaver.com/api/*)
 
 
 ## License
