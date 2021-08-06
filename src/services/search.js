@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { convertSong } = require('../utils/convert');
 
-const uploader = async (req, res) => {
+const search = async (req, res) => {
 	const { page } = req.params;
 	const perPage = 20;
 
@@ -23,4 +23,4 @@ const uploader = async (req, res) => {
 	});
 };
 
-module.exports = uploader;
+module.exports = search;
