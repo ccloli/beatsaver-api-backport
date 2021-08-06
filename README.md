@@ -91,7 +91,9 @@ You can, but not recommended for security reasons. They may modify the source co
 
 ## Why you write this?
 
-I'm not interest in updating (and have reason to run old version game), and don't like the feeling that having BREAKING CHANGE things and doesn't compatible with the old version (though to be honest, it's still a good step to make BeatSaver works better like having new features, a short pain is for better future).
+I'm not interest in updating (and have reason to run old version game), and don't like the feeling that having BREAKING CHANGE things and doesn't compatible with the old version.
+
+Though to be honest, it's still a good step to make BeatSaver works better like having new features, a short pain is for better future. But I'm still prefer to compatible with older APIs, and newer APIs should distinct with older APIs like having a newer prefix like `/api/v2/`. But as the server's maintainer is changed, so it may not possible as it's not easy to do an adapter.
 
 
 ## License
