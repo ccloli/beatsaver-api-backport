@@ -46,9 +46,9 @@ server {
 	server_name beatsaver.com;
 
 	ssl_certificate /usr/share/nginx/ssl/beatsaver.com.crt;
-    ssl_certificate_key /usr/share/nginx/ssl/beatsaver.com.key;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    ssl_prefer_server_ciphers on;
+	ssl_certificate_key /usr/share/nginx/ssl/beatsaver.com.key;
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+	ssl_prefer_server_ciphers on;
 
 	location / {
 		# the default http server port in .env is 9980
