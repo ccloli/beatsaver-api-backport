@@ -1,7 +1,9 @@
 const express = require('express');
-const router = require('./router');
 const proxy = require('express-http-proxy');
-const port = process.env.PORT || 9980;
+const http = require('http');
+const https = require('https');
+const fs = require('fs');
+const router = require('./router');
 
 const app = express();
 app.use(proxy('https://api.beatsaver.com', {
@@ -15,9 +17,6 @@ app.use(proxy('https://api.beatsaver.com', {
 	filter: (req) => req.headers.referer || !req.path.startsWith('/api')
 }));
 app.use('/', router);
-app.listen(port, () => {
-	console.log(`Server is now listening on port ${port}`);
-});
 
 app.on('error', (err) => {
 	console.error(err);
@@ -25,3 +24,23 @@ app.on('error', (err) => {
 process.on('uncaughtException', (err) => {
 	console.error(err);
 });
+
+if (process.env.HTTP_ENABLE === 'true') {
+	const port = process.env.HTTP_PORT || 9980;
+	http.createServer(app).listen(port, () => {
+		console.log(`HTTP server is now listening on port ${port}`);
+	}).on('error', (err) => {
+		console.error(err);
+	});
+}
+if (process.env.HTTPS_ENABLE === 'true') {
+	const port = process.env.HTTPS_PORT || 9443;
+	https.createServer({
+		key: fs.readFileSync(process.env.HTTPS_KEY, 'utf-8'),
+		cert: fs.readFileSync(process.env.HTTPS_CERT, 'utf-8'),
+	}, app).listen(port, () => {
+		console.log(`HTTPS server is now listening on port ${port}`);
+	}).on('error', (err) => {
+		console.error(err);
+	});
+}
