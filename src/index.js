@@ -1,5 +1,6 @@
 const express = require('express');
 const proxy = require('express-http-proxy');
+require('express-async-errors');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
@@ -32,10 +33,34 @@ app.use(proxy('https://api.beatsaver.com', {
 
 app.use('/', router);
 
+app.use((err, req, res, next) => {
+	if (err.isAxiosError) {
+		const { response } = err;
+		if (response) {
+			console.log(response.data);
+			res.statusCode = response.status;
+			res.json(response.data);
+			return;
+		}
+	}
+
+	console.error(err);
+	res.statusCode = 500;
+	res.json({
+		error: 'Server Internal Error',
+		message: err.message,
+	});
+
+	next(err);
+});
+
 app.on('error', (err) => {
 	console.error(err);
 });
 process.on('uncaughtException', (err) => {
+	console.error(err);
+});
+process.on('unhandledRejection', (err) => {
 	console.error(err);
 });
 
