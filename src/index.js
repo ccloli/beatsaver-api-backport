@@ -14,6 +14,11 @@ if (process.env.LOG_REQUEST === 'true') {
 	});
 }
 
+app.use('/redirect/', (req, res) => {
+	const path = req.url.replace(/^\//, '');
+	res.redirect(path);
+});
+
 app.use(proxy('https://api.beatsaver.com', {
 	// request api.beatsaver.com in case you point beatsaver.com to localhost,
 	// nslookup api.beatsaver.com says it's an alias of beatsaver.com,

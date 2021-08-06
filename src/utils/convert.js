@@ -1,4 +1,4 @@
-const { getLowerCamelCaseName, getInitKeyMap } = require('./utils');
+const { getLowerCamelCaseName, getInitKeyMap, backwardURL } = require('./utils');
 
 const convertSong = (data) => {
 	const lastVersion = Array.from(data.versions || [])
@@ -57,9 +57,9 @@ const convertSong = (data) => {
 		uploader,
 		hash: lastVersion.hash,
 		uploaded: data.uploaded,
-		directDownload: lastVersion.downloadURL,
-		downloadURL: lastVersion.downloadURL,
-		coverURL: lastVersion.coverURL,
+		directDownload: backwardURL(lastVersion.downloadURL),
+		downloadURL: backwardURL(lastVersion.downloadURL),
+		coverURL: backwardURL(lastVersion.coverURL),
 	};
 };
 
