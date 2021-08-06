@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { convertSong } = require('../utils/convert');
 
-const detail = async (req, res) => {
+const download = async (req, res) => {
 	const { id } = req.params;
 
 	const response = await axios.get(`https://api.beatsaver.com/maps/id/${id}`);
@@ -10,4 +10,4 @@ const detail = async (req, res) => {
 	res.redirect(302, result.directDownload);
 };
 
-module.exports = detail;
+module.exports = download;

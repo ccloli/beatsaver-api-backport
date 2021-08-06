@@ -4,7 +4,9 @@ const uploader = require('../services/uploader');
 const search = require('../services/search');
 const download = require('../services/download');
 const latest = require('../services/latest');
+const rating = require('../services/rating');
 const plays = require('../services/plays');
+const fullSpread = require('../services/fullSpread');
 
 const router = Router();
 router.use('/api/maps/detail/:id', detail);
