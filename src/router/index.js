@@ -13,5 +13,6 @@ router.use('/api/search/text/:page', search);
 router.use('/api/download/key/:id', download);
 router.use('/api/stats/key/:id', detail);
 router.use('/api/maps/latest/:page', latest);
+router.use('/api/maps/rating/:page', rating);
 
 module.exports = router;
