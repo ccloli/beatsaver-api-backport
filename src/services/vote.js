@@ -37,7 +37,10 @@ const vote = async (req, res) => {
 	const result = convertSong(mapResponse.data);
 
 	// the vote result is a subset of song detail
-	return res.json(result);
+	return res.json({
+		...result,
+		...submitResponse,
+	});
 };
 
 module.exports = vote;

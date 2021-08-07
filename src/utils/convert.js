@@ -34,6 +34,7 @@ const convertSong = (data) => {
 		).map(([name, difficulties]) => ({ name, difficulties })),
 	};
 	const stats = {
+		...data.stats,
 		downloads: data.stats.downloads,
 		plays: data.stats.plays,
 		downVotes: data.stats.downvotes,
@@ -42,11 +43,13 @@ const convertSong = (data) => {
 		rating: data.stats.score,
 	};
 	const uploader = {
+		...data.uploader,
 		_id: data.uploader.id,
 		username: data.uploader.name,
 	};
 
 	return {
+		...data,
 		metadata,
 		stats,
 		description: data.description,

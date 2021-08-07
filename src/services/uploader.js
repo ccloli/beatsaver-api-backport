@@ -12,6 +12,7 @@ const uploader = async (req, res) => {
 	const lastPage = Math.ceil(stats.totalMaps / perPage) - 1;
 
 	return res.json({
+		...listResponse.data,
 		docs: docs.map(convertSong),
 		totalDocs: stats.totalMaps,
 		lastPage,
