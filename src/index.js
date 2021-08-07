@@ -4,6 +4,7 @@ const http = require('http');
 const https = require('https');
 const fs = require('fs');
 const router = require('./router');
+const realIP = require('./middleware/realIP');
 const logger = require('./middleware/logger');
 const redirect = require('./middleware/redirect');
 const proxy = require('./middleware/proxy');
@@ -14,10 +15,10 @@ if (process.env.LOG_TRUST_PROXY === 'true') {
 	app.enable('trust proxy');
 }
 
+app.use(realIP);
 if (process.env.LOG_REQUEST === 'true') {
 	app.use(logger);
 }
-
 app.use('/redirect/', redirect);
 app.use(proxy);
 app.use('/', router);
