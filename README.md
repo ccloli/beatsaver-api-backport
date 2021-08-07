@@ -14,6 +14,8 @@ The server helps you to migrate the newer APIs, and adapt them to the older APIs
 
 ## How to use?
 
+> If you have Docker installed, you can also build a docker image to run. For details, see the next section.
+
 You may need to have a look at `.env` file to do some configuration before start up.
 
 ```sh
@@ -73,6 +75,28 @@ Finally, [update your hosts file](https://www.google.com/search?q=how+to+edit+ho
 If you have setup some DNS resolver programs like Adguard Home, it's recommend to do the same thing on them.
 
 If everything works fine, open `https://beatsaver.com` on the PC that has trusted the self-signed certificate and set hosts file, the site should works fine and you should see the request logs on terminal. Opening game and click _More Songs_ button, you should see the latest song list and can download any songs.
+
+
+## But Docker is SUPERHOT!
+
+Well, there is a `Dockerfile`, you can build a docker image and run it.
+
+The docker file will create a self-sign SSL certificate if you don't create it manually and put it as `beatsaver.com.key` and `beatsaver.com.crt`, and enable both HTTP and HTTPS servers on `80` and `443` port (you can use `-p` to expose either or both servers).
+
+```bash
+docker build .
+docker run -p 80:80 -p 443:443 --name beatsaver-api-backport <image-id>
+```
+
+If you want to use nginx as a proxy layer, expose it to other ports and see the previous section to create an nginx config file.
+
+You still need to update your hosts file and trust the certificate manually (see previous section or just Google it). To get the certificate file, either [export it from browser directly](https://www.google.com/search?q=export+ssl+from+browser), or copy it from the container:
+
+```bash
+docker cp beatsaver-api-backport:/app/beatsaver.com.crt ./
+```
+
+Once everything is done, check if you can access the server in your browser without warning, and the server outputs your accessing log, and you can browse and download any maps in game.
 
 
 ## Why I need this?
