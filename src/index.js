@@ -7,10 +7,13 @@ const fs = require('fs');
 const router = require('./router');
 
 const app = express();
+if (process.env.LOG_TRUST_PROXY === 'true') {
+	app.enable('trust proxy');
+}
 
 if (process.env.LOG_REQUEST === 'true') {
 	app.use((req, res, next) => {
-		console.log(`[${req.ip}] ${req.method} ${req.originalUrl}`);
+		console.log(`[${req.ip}] ${req.method} ${req.originalUrl} "${req.headers['user-agent']}"`);
 		next();
 	});
 }
