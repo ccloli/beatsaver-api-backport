@@ -7,6 +7,7 @@ const latest = require('../services/latest');
 const rating = require('../services/rating');
 const plays = require('../services/plays');
 const fullSpread = require('../services/fullSpread');
+const song = require('../services/song');
 
 const router = Router();
 router.use('/api/maps/detail/:id', detail);
@@ -17,6 +18,8 @@ router.use('/api/download/key/:id', download);
 router.use('/api/download/hash/:hash', download);
 router.use('/api/stats/key/:id', detail);
 router.use('/api/stats/by-hash/:hash', detail);
+router.use('/api/songs/detail/:id', song);
+router.use('/api/songs/search/hash/:hash', song);
 router.use('/api/maps/latest/:page', latest);
 router.use('/api/maps/rating/:page', rating);
 router.use('/api/maps/plays/:page', plays);
