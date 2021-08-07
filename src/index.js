@@ -1,10 +1,13 @@
 const express = require('express');
-const proxy = require('express-http-proxy');
 require('express-async-errors');
 const http = require('http');
 const https = require('https');
 const fs = require('fs');
 const router = require('./router');
+const logger = require('./middleware/logger');
+const redirect = require('./middleware/redirect');
+const proxy = require('./middleware/proxy');
+const catchError = require('./middleware/catchError');
 
 const app = express();
 if (process.env.LOG_TRUST_PROXY === 'true') {
@@ -12,50 +15,13 @@ if (process.env.LOG_TRUST_PROXY === 'true') {
 }
 
 if (process.env.LOG_REQUEST === 'true') {
-	app.use((req, res, next) => {
-		console.log(`[${req.ip}] ${req.method} ${req.originalUrl} "${req.headers['user-agent']}"`);
-		next();
-	});
+	app.use(logger);
 }
 
-app.use('/redirect/', (req, res) => {
-	const path = req.url.replace(/^\//, '');
-	res.redirect(path);
-});
-
-app.use(proxy('https://api.beatsaver.com', {
-	// request api.beatsaver.com in case you point beatsaver.com to localhost,
-	// nslookup api.beatsaver.com says it's an alias of beatsaver.com,
-	// so it's safe to request api.beatsaver.com for now
-	proxyReqOptDecorator: (req) => {
-		req.headers.host = 'beatsaver.com';
-		return req;
-	},
-	filter: (req) => req.headers.referer || !req.path.startsWith('/api')
-}));
-
+app.use('/redirect/', redirect);
+app.use(proxy);
 app.use('/', router);
-
-app.use((err, req, res, next) => {
-	if (err.isAxiosError) {
-		const { response } = err;
-		if (response) {
-			console.log(response.data);
-			res.statusCode = response.status;
-			res.json(response.data);
-			return;
-		}
-	}
-
-	console.error(err);
-	res.statusCode = 500;
-	res.json({
-		error: 'Server Internal Error',
-		message: err.message,
-	});
-
-	next(err);
-});
+app.use(catchError);
 
 app.on('error', (err) => {
 	console.error(err);
