@@ -16,7 +16,10 @@ WORKDIR /app
 COPY . .
 
 RUN npm i --production
-RUN (test -f "$HTTPS_KEY" && test -f "$HTTPS_CERT") || openssl req -new -x509 -subj '/CN=beatsaver.com' -nodes -out beatsaver.com.crt -keyout beatsaver.com.key
+RUN (test -f "$HTTPS_KEY" && test -f "$HTTPS_CERT") || \
+	openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes \
+		-subj "/CN=beatsaver.com" -addext "subjectAltName=DNS:beatsaver.com,DNS:www.beatsaver.com" \
+		-out beatsaver.com.crt -keyout beatsaver.com.key
 
 EXPOSE 80/tcp 443/tcp
 
