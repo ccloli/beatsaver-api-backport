@@ -17,6 +17,8 @@ if (process.env.LOG_TRUST_PROXY === 'true') {
 	app.enable('trust proxy');
 }
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(realIP);
 if (process.env.LOG_REQUEST === 'true') {
 	app.use(logger);

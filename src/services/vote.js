@@ -26,10 +26,11 @@ const vote = async (req, res) => {
 		direction: direction > 0,
 		hash,
 	});
+	const submitResult = submitResponse.data;
 
-	if (!submitResponse.data.success) {
+	if (!submitResult.success) {
 		res.statusCode = 403;
-		res.json(submitResponse.data);
+		res.json(submitResult);
 		return;
 	}
 
@@ -39,7 +40,7 @@ const vote = async (req, res) => {
 	// the vote result is a subset of song detail
 	return res.json({
 		...result,
-		...submitResponse,
+		...submitResult,
 	});
 };
 
