@@ -21,7 +21,7 @@ npm i --production
 npm start
 ```
 
-The server is configured to proxy to original `beatsaver.com`, so accessing the server should give you the full features for current version of BeatSaver, and convert APIs to older version automatically for mods (or technically, when not accessing with a web browser).
+The server is configured to proxy to original `beatsaver.com`, so accessing the server should give you the full features for the current version of BeatSaver, and convert APIs to older version automatically for mods (or technically, when not accessing with a web browser).
 
 To make the server (and your mods) fully works, it's **required** to create a https server, and it **must** run on port `443`.
 
@@ -61,7 +61,7 @@ However, in either way, you still need to create a SSL certificate of `beatsaver
 
 Since you don't own `beatsaver.com`, so you cannot sign a public validated certificate. Instead, you have to [self-sign a SSL certificate](https://www.google.com/search?q=how+to+generate+a+self-signed+ssl), and [trust it on the PC](https://www.google.com/search?q=how+to+trust+a+self-signed+ssl) you want to use old mods.
 
-Finally, update your hosts file, add a line to point `beatsaver.com` to your server:
+Finally, [update your hosts file](https://www.google.com/search?q=how+to+edit+hosts), add a line to point `beatsaver.com` to your server:
 
 ```conf
 <server-ip> beatsaver.com
@@ -70,7 +70,7 @@ Finally, update your hosts file, add a line to point `beatsaver.com` to your ser
 # 127.0.0.1 beatsaver.com
 ```
 
-If you have setup some DNS resolver programs like Adguard Home, it's recommend to do the same things on them.
+If you have setup some DNS resolver programs like Adguard Home, it's recommend to do the same thing on them.
 
 If everything works fine, open `https://beatsaver.com` on the PC that has trusted the self-signed certificate and set hosts file, the site should works fine and you should see the request logs on terminal. Opening game and click _More Songs_ button, you should see the latest song list and can download any songs.
 
@@ -79,7 +79,7 @@ If everything works fine, open `https://beatsaver.com` on the PC that has truste
 
 Again, if you're intended to use a newer version of game and mods, and don't want to stay on old version's game or mods (which is also not recommended by BSMG), then you don't need this. Instead, all you need to do is to wait the mods being updated.
 
-If you're trying to run an older version of game or mods (again it's not recommended by BSMG), and wants to download songs in game, then this is a way to make it works again.
+If you're trying to run an older version of game or mods (again it's not recommended by BSMG), and want to download songs in game, then this is a way to make it works again.
 
 
 ## I'm not a geek, can I use a public hosted server?
@@ -89,9 +89,9 @@ You can, but not recommended for security reasons. They may modify the source co
 
 ## Why you write this?
 
-I'm not interested in updating (and have reason to run old version game), and don't like the feeling that having BREAKING CHANGE things and doesn't compatible with the old version.
+I'm not interested in updating (and have reason to run old version game), and don't like the feeling that having BREAKING CHANGE things and don't compatible with the old version.
 
-Though to be honest, it's still a good step to make BeatSaver works better like having new features, a short pain is for better future. But I'm still prefer to compatible with older APIs, and newer APIs should distinct with older APIs like having a newer prefix like `/api/v2/`. But as the server's maintainer is changed, so it may not possible as it's not easy to do an adapter.
+Though to be honest, it's still a good step to make BeatSaver works better like having new features, a short pain is for better future. But I'm still prefer to compatible with older APIs, and newer APIs should distinct with older APIs like having a specific prefix like `/api/v2/`. But as the server's maintainer has changed, so it may not possible as it's not easy to do an adapter.
 
 
 ## Special Thanks
