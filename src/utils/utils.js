@@ -7,12 +7,15 @@ const getInitKeyMap = (keys, initialValue) => {
 	}, {});
 }
 
-const backwardURL = (url) => {
-	return `/redirect/${url}`;
-};
+const backwardURL = (url) => `/redirect/${url}`;
+
+const errorHandler = (err) => {
+	console.error(err);
+}
 
 module.exports = {
 	getLowerCamelCaseName,
 	getInitKeyMap,
 	backwardURL,
+	errorHandler,
 };

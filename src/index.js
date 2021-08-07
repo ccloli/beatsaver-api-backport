@@ -10,6 +10,7 @@ const redirect = require('./middleware/redirect');
 const proxy = require('./middleware/proxy');
 const catchError = require('./middleware/catchError');
 const axiosHook = require('./middleware/axiosHook');
+const { errorHandler } = require('./utils/utils');
 
 const app = express();
 if (process.env.LOG_TRUST_PROXY === 'true') {
@@ -26,23 +27,15 @@ app.use(axiosHook);
 app.use('/', router);
 app.use(catchError);
 
-app.on('error', (err) => {
-	console.error(err);
-});
-process.on('uncaughtException', (err) => {
-	console.error(err);
-});
-process.on('unhandledRejection', (err) => {
-	console.error(err);
-});
+app.on('error', errorHandler);
+process.on('uncaughtException', errorHandler);
+process.on('unhandledRejection', errorHandler);
 
 if (process.env.HTTP_ENABLE === 'true') {
 	const port = process.env.HTTP_PORT || 9980;
 	http.createServer(app).listen(port, () => {
 		console.log(`HTTP server is now listening on port ${port}`);
-	}).on('error', (err) => {
-		console.error(err);
-	});
+	}).on('error', errorHandler);
 }
 if (process.env.HTTPS_ENABLE === 'true') {
 	const port = process.env.HTTPS_PORT || 9443;
@@ -51,7 +44,5 @@ if (process.env.HTTPS_ENABLE === 'true') {
 		cert: fs.readFileSync(process.env.HTTPS_CERT, 'utf-8'),
 	}, app).listen(port, () => {
 		console.log(`HTTPS server is now listening on port ${port}`);
-	}).on('error', (err) => {
-		console.error(err);
-	});
+	}).on('error', errorHandler);
 }
