@@ -27,9 +27,9 @@ const vote = async (req, res) => {
 		hash,
 	});
 
-	if (!submitResponse.success) {
+	if (!submitResponse.data.success) {
 		res.statusCode = 403;
-		res.json(submitResponse);
+		res.json(submitResponse.data);
 		return;
 	}
 
