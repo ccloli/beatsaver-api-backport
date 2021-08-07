@@ -79,7 +79,7 @@ If everything works fine, open `https://beatsaver.com` on the PC that has truste
 
 Again, if you're intended to use a newer version of game and mods, and don't want to stay on old version's game or mods (which is also not recommended by BSMG), then you don't need this. Instead, all you need to do is to wait the mods being updated.
 
-If you're trying to run an older version of game or mods (again it's not recommended by BSMG), and wants to download songs in game, then this is a way to make it works again. 
+If you're trying to run an older version of game or mods (again it's not recommended by BSMG), and wants to download songs in game, then this is a way to make it works again.
 
 
 ## I'm not a geek, can I use a public hosted server?
@@ -96,7 +96,8 @@ Though to be honest, it's still a good step to make BeatSaver works better like 
 
 ## Special Thanks
 
-- [Internet Archive Wayback Machine](https://web.archive.org/web/*/https://beatsaver.com/api/*)
+- [Internet Archive Wayback Machine](https://web.archive.org/web/*/https://beatsaver.com/api/*) for most API URLs and response data
+- [BeatSaberDataProvider](https://github.com/Zingabopp/BeatSaberDataProvider/blob/586cb111a381be95bc77a165bb85cd51839772c4/SongFeedReadersTests/WebUtilsTests/GetRateLimitedBase_Tests.cs) and [BeatSaverDownloader](https://github.com/andruzzzhka/BeatSaverDownloader/blob/88430ed017828f8cf7102680310900e789a0387d/BeatSaverDownloader/Misc/BeatSaverAPIResult.cs) for some missing API URLs and data structs.
 
 
 ## License
