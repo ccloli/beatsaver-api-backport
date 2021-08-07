@@ -25,6 +25,7 @@ router.use('/api/vote/steam/:id', vote);
 router.use('/api/maps/latest/:page', latest);
 router.use('/api/maps/rating/:page', rating);
 router.use('/api/maps/plays/:page', plays);
+// fake support the following apis
 router.use('/api/maps/downloads/:page', fullSpread);
 router.use('/api/maps/hot/:page', fullSpread);
 

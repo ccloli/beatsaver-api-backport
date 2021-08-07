@@ -91,7 +91,12 @@ You can, but not recommended for security reasons. They may modify the source co
 
 I'm not interested in updating (and have reason to run old version game), and don't like the feeling that having BREAKING CHANGE things and don't compatible with the old version.
 
-Though to be honest, it's still a good step to make BeatSaver works better like having new features, a short pain is for better future. But I'm still prefer to compatible with older APIs, and newer APIs should distinct with older APIs like having a specific prefix like `/api/v2/`. But as the server's maintainer has changed, so it may not possible as it's not easy to do an adapter.
+Though to be honest, it's still a good step to make BeatSaver works better like having new features, a short pain is for better future. But I'm still prefer to compatible with older APIs, and newer APIs should distinct with older APIs like having a specific prefix like `/api/v2/`. But as the server's maintainer has changed (the current server is the previous `beatmaps.io`), so it may not possible as it's not easy to do an adapter. You can say this is a mod for the BeatSaver server.
+
+
+## Supported API
+
+See [`src/router/index.js`](src/router/index.js).
 
 
 ## Special Thanks
