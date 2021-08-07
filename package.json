@@ -1,6 +1,6 @@
 {
   "name": "beatsaver-api-backport",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "An adapter to convert newer BeatSaver API (maintained by Top_Cat) to older version (maintained by The Jellyfish)",
   "main": "index.js",
   "scripts": {
