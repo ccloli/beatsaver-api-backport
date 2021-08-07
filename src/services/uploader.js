@@ -1,7 +1,7 @@
-const axios = require('axios');
 const { convertSong } = require('../utils/convert');
 
 const uploader = async (req, res) => {
+	const { axios } = req;
 	const { id, page } = req.params;
 	const perPage = 20;
 

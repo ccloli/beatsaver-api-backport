@@ -9,6 +9,7 @@ const logger = require('./middleware/logger');
 const redirect = require('./middleware/redirect');
 const proxy = require('./middleware/proxy');
 const catchError = require('./middleware/catchError');
+const axiosHook = require('./middleware/axiosHook');
 
 const app = express();
 if (process.env.LOG_TRUST_PROXY === 'true') {
@@ -21,6 +22,7 @@ if (process.env.LOG_REQUEST === 'true') {
 }
 app.use('/redirect/', redirect);
 app.use(proxy);
+app.use(axiosHook);
 app.use('/', router);
 app.use(catchError);
 

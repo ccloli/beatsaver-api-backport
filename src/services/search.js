@@ -1,7 +1,7 @@
-const axios = require('axios');
 const { convertSong } = require('../utils/convert');
 
 const search = async (req, res) => {
+	const { axios } = req;
 	const { page } = req.params;
 	const perPage = 20;
 

@@ -1,7 +1,7 @@
-const axios = require('axios');
 const { convertInfo } = require('../utils/convert');
 
 const song = async (req, res) => {
+	const { axios } = req;
 	const { id, hash } = req.params;
 
 	const response = await axios.get(

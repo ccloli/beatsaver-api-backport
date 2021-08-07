@@ -1,7 +1,7 @@
-const axios = require('axios');
 const { convertSong } = require('../utils/convert');
 
 const vote = async (req, res) => {
+	const { axios } = req;
 	const { id } = req.params;
 	const { steamID, ticket, direction } = req.body;
 

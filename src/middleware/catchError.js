@@ -19,4 +19,4 @@ const catchError = (err, req, res, next) => {
 	next(err);
 };
 
-module.expors = catchError;
+module.exports = catchError;
