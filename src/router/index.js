@@ -8,6 +8,7 @@ const rating = require('../services/rating');
 const plays = require('../services/plays');
 const fullSpread = require('../services/fullSpread');
 const song = require('../services/song');
+const vote = require('../services/vote');
 
 const router = Router();
 router.use('/api/maps/detail/:id', detail);
@@ -20,6 +21,7 @@ router.use('/api/stats/key/:id', detail);
 router.use('/api/stats/by-hash/:hash', detail);
 router.use('/api/songs/detail/:id', song);
 router.use('/api/songs/search/hash/:hash', song);
+router.use('/api/vote/steam/:id', vote);
 router.use('/api/maps/latest/:page', latest);
 router.use('/api/maps/rating/:page', rating);
 router.use('/api/maps/plays/:page', plays);
