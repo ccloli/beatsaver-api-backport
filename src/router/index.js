@@ -9,6 +9,7 @@ const plays = require('../services/plays');
 const fullSpread = require('../services/fullSpread');
 const song = require('../services/song');
 const vote = require('../services/vote');
+const cdn = require('../services/cdn');
 
 const router = Router();
 router.use('/api/maps/detail/:id', detail);
@@ -25,6 +26,7 @@ router.use('/api/vote/steam/:id', vote);
 router.use('/api/maps/latest/:page', latest);
 router.use('/api/maps/rating/:page', rating);
 router.use('/api/maps/plays/:page', plays);
+router.use('/cdn/:id/:file', cdn);
 // fake support the following apis
 router.use('/api/maps/downloads/:page', fullSpread);
 router.use('/api/maps/hot/:page', fullSpread);
