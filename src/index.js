@@ -24,9 +24,10 @@ if (process.env.LOG_REQUEST === 'true') {
 	app.use(logger);
 }
 app.use('/redirect/', redirect);
-app.use(proxy);
+app.use(proxy(true)); // for browser request only
 app.use(axiosHook);
 app.use('/', router);
+app.use(proxy(false)); // for requesting new api
 app.use(catchError);
 
 app.on('error', errorHandler);
