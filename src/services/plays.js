@@ -2,7 +2,7 @@ const { convertSong } = require('../utils/convert');
 
 const plays = async (req, res) => {
 	const { axios } = req;
-	const { page } = req.params;
+	const { page = 0 } = req.params;
 	const perPage = 20;
 
 	const listResponse = await axios.get(`https://api.beatsaver.com/maps/plays/${page}`, {

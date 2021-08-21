@@ -2,7 +2,7 @@ const { convertSong } = require('../utils/convert');
 
 const uploader = async (req, res) => {
 	const { axios } = req;
-	const { id, page } = req.params;
+	const { id, page = 0 } = req.params;
 	const perPage = 20;
 
 	const listResponse = await axios.get(`https://api.beatsaver.com/maps/uploader/${id}/${page}`);
