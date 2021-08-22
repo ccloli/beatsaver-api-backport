@@ -14,7 +14,7 @@ const advanced = async (req, res) => {
 		// wildcards: *, ?
 		// groups: ()
 		// fuzzy: ~\d*
-		// boosting: ^\d*
+		// boost: ^\d*
 		// boolean: +, -
 		// regex: /.*/
 		// the syntax can be combined, but if we case all the cases it'll be too heavy, like reimplementing DSL
@@ -24,12 +24,32 @@ const advanced = async (req, res) => {
 	const isWildCard = value => value === '*';
 	const isRegex = value => /^\/.*\/$/.test(value);
 	const parseStartEnd = value => {
-		// hope no one uses something like >, < or combined them with AND / OR...
+		// hope no one uses something like >, < and combined them with AND / OR...
 		let [start, end] = parseRange(value);
 		if (start && !end) {
-			end = start;
+			// falsy boolean operator (-) is not supported
+			if (/^-[>=<]/.test(start)) {
+				return [];
+			}
+			// remove truly boolean operator (+)
+			start = start.replace(/^\+/, '');
+			if (/^[>=<]/.test(start)) {
+				if (start[0] === '>') {
+					[end, start] = start.split(/>=?\s*/);
+				}
+				else if (start[0] === '<') {
+					[start, end] = start.split(/<=?\s*/);
+				}
+				else { // start[0] === '='
+					start = start.replace(/^=\s*/, '');
+					end = start;
+				}
+			}
+			else {
+				end = start;
+			}
 		}
-		[start, end] = [start, end].map(e => isWildCard(e) ? null : e);
+		[start, end] = [start, end].map(e => (isWildCard(e) || e === '') ? null : e);
 		return [start, end];
 	};
 
