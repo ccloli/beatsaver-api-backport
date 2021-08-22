@@ -4,16 +4,27 @@ const advanced = async (req, res) => {
 	const { q = '' } = req.query;
 
 	const result = {};
-	// the query syntax of Elastic Search is too strong,
-	// we can only adapt a small set of original queries and ignore some limitation like AND/OR and regex
+	// the query syntax of Elastic Search, or Query DSL, is too strong,
+	// we can only adapt a small set of original queries and ignore some features like AND/OR and regex
 	// see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html
 	const tokens = q.split(/(?<=.+?:(?:[[{].+?[\]}]|\(.+?\)|".+?"|.+?))(?:\s+(?:AND|OR|\|)\s*|$)/).filter(e => e);
 
 	const parseRange = value => value.replace(/^[[{(]|[\]})]$/g, '').split(/\s+(?:AND|OR|TO)\s+/);
-	const ignoreWildCard = value => (value || '').replace(/\*|\?|~\d*$|\^\d*$/g, ' ').trim();
+	const ignoreUnsupported = value => (
+		// wildcards: *, ?
+		// groups: ()
+		// fuzzy: ~\d*
+		// boosting: ^\d*
+		// boolean: +, -
+		// regex: /.*/
+		// the syntax can be combined, but if we case all the cases it'll be too heavy, like reimplementing DSL
+		// so... hope nobody will use that complex syntax
+		(value || '').replace(/\*|\?|^\(|\)$|\)?~\d*$|\)?\^\d*$|^\+|^-.*$|^\/.+\/$/g, ' ').replace(/\\\\/g, '').trim()
+	);
 	const isWildCard = value => value === '*';
 	const isRegex = value => /^\/.*\/$/.test(value);
 	const parseStartEnd = value => {
+		// hope no one uses something like >, < or combined them with AND / OR...
 		let [start, end] = parseRange(value);
 		if (start && !end) {
 			end = start;
@@ -42,7 +53,7 @@ const advanced = async (req, res) => {
 			case 'metadata.songAuthorName':
 			case 'name':
 			case 'description': {
-				result.q = [result.q, ...parseRange(value).map(ignoreWildCard)].filter(e => e).join(' ');
+				result.q = [result.q, ...parseRange(value).map(ignoreUnsupported)].filter(e => e).join(' ');
 				break;
 			}
 
@@ -82,6 +93,8 @@ const advanced = async (req, res) => {
 				result.q = [result.q, `key:${value}`].filter(e => e).join(' ');
 				break;
 			}
+
+			// the other keys are not supported by server
 		}
 	});
 
