@@ -7,10 +7,10 @@ const advanced = async (req, res) => {
 	// the query syntax of Elastic Search is too strong,
 	// we can only adapt a small set of original queries and ignore some limitation like AND/OR and regex
 	// see https://www.elastic.co/guide/en/elasticsearch/reference/current/query-dsl-query-string-query.html
-	const tokens = q.split(/(?<=.+?:(?:[[{].+?[\]}]|\(.+?\)|".+?"|.+?))(?:\s+(?:AND|OR|\|)\s*|$)/);
+	const tokens = q.split(/(?<=.+?:(?:[[{].+?[\]}]|\(.+?\)|".+?"|.+?))(?:\s+(?:AND|OR|\|)\s*|$)/).filter(e => e);
 
 	const parseRange = value => value.replace(/^[[{(]|[\]})]$/g, '').split(/\s+(?:AND|OR|TO)\s+/);
-	const ignoreWildCard = value => (value || '').replace(/\*|\?|~\d*|\^\d*$/g, ' ').trim();
+	const ignoreWildCard = value => (value || '').replace(/\*|\?|~\d*$|\^\d*$/g, ' ').trim();
 	const isWildCard = value => value === '*';
 	const isRegex = value => /^\/.*\/$/.test(value);
 	const parseStartEnd = value => {
@@ -31,7 +31,7 @@ const advanced = async (req, res) => {
 
 		switch (key) {
 			case 'uploaded': {
-				let [start, end] = parseStartEnd(value);
+				const [start, end] = parseStartEnd(value);
 				result.from = start;
 				result.to = end;
 				break;
@@ -51,14 +51,14 @@ const advanced = async (req, res) => {
 			}
 
 			case 'metadata.duration': {
-				let [start, end] = parseStartEnd(value);
+				const [start, end] = parseStartEnd(value);
 				result.minDuration = start;
 				result.maxDuration = end;
 				break;
 			}
 
 			case 'metadata.bpm': {
-				let [start, end] = parseStartEnd(value);
+				const [start, end] = parseStartEnd(value);
 				result.minBpm = start;
 				result.maxBpm = end;
 				break;
@@ -70,7 +70,7 @@ const advanced = async (req, res) => {
 			}
 
 			case 'metadata.stats.rating': {
-				let [start, end] = parseStartEnd(value);
+				const [start, end] = parseStartEnd(value);
 				result.minRating = start;
 				result.maxRating = end;
 				break;
