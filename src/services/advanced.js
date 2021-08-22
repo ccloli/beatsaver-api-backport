@@ -39,7 +39,9 @@ const advanced = async (req, res) => {
 
 			case 'metadata.songName':
 			case 'metadata.songSubName':
-			case 'metadata.songAuthorName': {
+			case 'metadata.songAuthorName':
+			case 'name':
+			case 'description': {
 				result.q = [result.q, ...parseRange(value).map(ignoreWildCard)].filter(e => e).join(' ');
 				break;
 			}
