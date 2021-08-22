@@ -11,6 +11,8 @@ If you want to use old version's mods, the in-game song download feature may not
 
 The server helps you to migrate the newer APIs, and adapt them to the older APIs on-the-fly, so that the old mods can run most features like browsing song list and downloading them.
 
+> If you're running the game on `v1.16.3` or newer, and having installed the latest mods, then maybe you don't need this since most core mods have updated to new API. If you're running the game on `v1.16.2` or older, and newer mods are not support the old version, and you're having problem with some mod features about downloading maps, then you may need this.
+
 
 ## How to use?
 
@@ -121,6 +123,8 @@ Though to be honest, it's still a good step to make BeatSaver works better like 
 ## Supported API
 
 See [`src/router/index.js`](src/router/index.js).
+
+In short, the server has adapted most public APIs about searching, downloading and voting.
 
 
 ## Special Thanks
